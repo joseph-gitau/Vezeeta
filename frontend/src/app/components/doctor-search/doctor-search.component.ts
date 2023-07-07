@@ -229,17 +229,35 @@ export class DoctorSearchComponent {
     console.log('Perform search');
   }
 
-  onMenuOpened() {
+  onSpecialtyMenuOpened() {
     this.isSpecialtyMenuOpen = true;
+  }
+
+  onSpecialtyMenuClosed() {
+    this.isSpecialtyMenuOpen = false;
+  }
+
+  onCountyMenuOpened() {
     this.isCountyMenuOpen = true;
+  }
+
+  onCountyMenuClosed() {
+    this.isCountyMenuOpen = false;
+  }
+
+  onCityMenuOpened() {
     this.isCityMenuOpen = true;
+  }
+
+  onCityMenuClosed() {
+    this.isCityMenuOpen = false;
+  }
+
+  onInsuranceMenuOpened() {
     this.isInsuranceMenuOpen = true;
   }
 
-  onMenuClosed() {
-    this.isSpecialtyMenuOpen = false;
-    this.isCountyMenuOpen = false;
-    this.isCityMenuOpen = false;
+  onInsuranceMenuClosed() {
     this.isInsuranceMenuOpen = false;
   }
 }
