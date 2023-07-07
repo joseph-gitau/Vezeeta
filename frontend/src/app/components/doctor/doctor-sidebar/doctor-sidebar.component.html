@@ -1,0 +1,57 @@
+<!-- <mat-sidenav mode="side" opened>
+  <div class="sidebar-header">
+    <h4>Doctor Dashboard</h4>
+  </div>
+  <mat-nav-list>
+    <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+      <mat-icon>dashboard</mat-icon>
+      <span>Dashboard</span>
+    </a>
+    <a mat-list-item routerLink="/approve-appointments" routerLinkActive="active">
+      <mat-icon>playlist_add_check</mat-icon>
+      <span>Approve Appointments</span>
+    </a>
+    <a mat-list-item routerLink="/interact-with-patients" routerLinkActive="active">
+      <mat-icon>chat</mat-icon>
+      <span>Interact with Patients</span>
+    </a>
+    <a mat-list-item routerLink="/prescribe-treatment" routerLinkActive="active">
+      <mat-icon>medical_services</mat-icon>
+      <span>Prescribe Treatment</span>
+    </a>
+    <a mat-list-item routerLink="/refer-clients" routerLinkActive="active">
+      <mat-icon>person_add_alt</mat-icon>
+      <span>Refer Clients to Doctors</span>
+    </a>
+    <a mat-list-item routerLink="/order-lab-results" routerLinkActive="active">
+      <mat-icon>science</mat-icon>
+      <span>Order Lab Results</span>
+    </a>
+    <a mat-list-item routerLink="/manage-profile" routerLinkActive="active">
+      <mat-icon>person</mat-icon>
+      <span>Manage Profile</span>
+    </a>
+    <a mat-list-item routerLink="/leave-platform" routerLinkActive="active">
+      <mat-icon>power_settings_new</mat-icon>
+      <span>Leave Platform</span>
+    </a>
+    <a mat-list-item routerLink="/personal-session-actions" routerLinkActive="active">
+      <mat-icon>history</mat-icon>
+      <span>View Personal Session & Actions</span>
+    </a>
+  </mat-nav-list>
+</mat-sidenav> -->
+<mat-sidenav #sidenav mode="side" opened [fixedInViewport]="true" [mode]="isMobile ? 'over' : 'side'">
+  <div class="sidebar-header">
+    <h4>Doctor Dashboard</h4>
+  </div>
+  <mat-nav-list>
+    <a mat-list-item *ngFor="let item of sidebarItems" routerLink="{{ item.route }}" routerLinkActive="active">
+      <mat-icon *ngIf="!isMobile || showFullItems">{{ item.icon }}</mat-icon>
+      <span *ngIf="showFullItems">{{ item.name }}</span>
+    </a>
+  </mat-nav-list>
+  <button mat-icon-button class="toggle-btn" (click)="toggleSidebarItems()">
+    <mat-icon>{{ showFullItems ? 'menu' : 'more_vert' }}</mat-icon>
+  </button>
+</mat-sidenav>

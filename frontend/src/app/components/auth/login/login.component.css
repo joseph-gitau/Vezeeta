@@ -1,0 +1,17 @@
+.hr-text {
+  position: relative;
+  border: none;
+  height: 1px;
+  background: #ccc;
+}
+
+.hr-text::before {
+  content: attr(data-content);
+  display: inline-block;
+  position: relative;
+  top: -0.7em;
+  padding: 0 0.5em;
+  background: #fff;
+  color: #888;
+  font-size: 14px;
+}

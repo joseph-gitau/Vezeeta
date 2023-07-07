@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Doctor Registration</h5>
+          <form method="POST" action="http://127.0.0.1:8000/api/Patient/add">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="fullName">Full Name</label>
+                <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter a password" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="tel" class="form-control" id="mobileNumber" placeholder="Enter your mobile number"
+                  required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="specialty">Specialty</label>
+                <input type="text" class="form-control" id="specialty" placeholder="Enter your specialty" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="licenseNumber">Medical License Number</label>
+                <input type="text" class="form-control" id="licenseNumber" placeholder="Enter your license number"
+                  required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="affiliation">Clinic or Hospital Affiliation</label>
+                <input type="text" class="form-control" id="affiliation"
+                  placeholder="Enter your clinic or hospital affiliation">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="experience">Professional Experience</label>
+                <input type="text" class="form-control" id="experience"
+                  placeholder="Enter your professional experience">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="education">Education and Qualifications</label>
+              <textarea class="form-control" id="education" rows="3"
+                placeholder="Enter your education and qualifications"></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="languages">Language Proficiency</label>
+                <input type="text" class="form-control" id="languages" placeholder="Enter your language proficiency">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="certifications">Professional Certifications</label>
+                <textarea class="form-control" id="certifications" rows="3"
+                  placeholder="Enter your professional certifications"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="profilePicture">Profile Picture</label>
+              <input type="file" class="form-control-file" id="profilePicture">
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

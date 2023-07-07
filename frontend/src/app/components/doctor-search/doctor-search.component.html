@@ -1,0 +1,97 @@
+<div class="bg-light p-2 col-md-12 w-100 rounded">
+  <div class=" row w-100">
+    <div class="col-md-2 custom-menu-col border-right">
+      <button mat-button [matMenuTriggerFor]="specialtyMenu" (menuOpened)="onMenuOpened()" (menuClosed)="onMenuClosed()"
+        style="position: relative;">
+        <mat-icon>{{ isSpecialtyMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
+        Select a specialty
+      </button>
+      <div class="row p-2 ml-1 d-flex justify-content-center align-items-center" style="max-height: 30px;">
+        <!-- Speciality mat icon -->
+        <mat-icon class="dropdown-menu-icon">local_hospital</mat-icon>
+        <!-- Selected option -->
+        <span class="dropdown-menu-selected-option d-inline-block text-truncate">{{ selectedSpecialty }}</span>
+      </div>
+      <mat-menu #specialtyMenu="matMenu">
+        <div class="row dropdown-menu-menu">
+
+          <div class="col-md-12" *ngFor="let specialty of specialties; let i = index">
+            <button mat-menu-item (click)="selectSpecialty(specialty)">{{ specialty }}</button>
+          </div>
+        </div>
+      </mat-menu>
+    </div>
+
+    <div class="col-md-2 border-right">
+      <button mat-button [matMenuTriggerFor]="countyMenu" (menuOpened)="onMenuOpened()" (menuClosed)="onMenuClosed()">
+        <mat-icon>{{ isCountyMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
+        In this county
+      </button>
+      <div class="row p-2 ml-1 justify-content-center align-items-center">
+        <!-- County mat icon -->
+        <mat-icon class="dropdown-menu-icon">location_city</mat-icon>
+        <!-- Selected option -->
+        <span class="dropdown-menu-selected-option d-inline-block text-truncate">{{ selectedCounty }}</span>
+      </div>
+      <mat-menu #countyMenu="matMenu">
+        <div class="row">
+          <div class="col-md-12" *ngFor="let county of counties; let i = index">
+            <button mat-menu-item (click)="selectCounty(county)">{{ county }}</button>
+          </div>
+        </div>
+      </mat-menu>
+    </div>
+    <div class="col-md-2 border-right">
+      <button mat-button [matMenuTriggerFor]="cityMenu" (menuOpened)="onMenuOpened()" (menuClosed)="onMenuClosed()">
+        <mat-icon>{{ isCityMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
+        In this city
+      </button>
+      <div class="row p-2 ml-1 justify-content-center align-items-center">
+        <!-- City mat icon -->
+        <mat-icon class="dropdown-menu-icon">location_on</mat-icon>
+        <!-- Selected option -->
+        <span class="dropdown-menu-selected-option d-inline-block text-truncate">{{ selectedCity }}</span>
+      </div>
+      <mat-menu #cityMenu="matMenu">
+        <div class="row">
+          <div class="col-md-12" *ngFor="let city of coCities; let i = index">
+            <button mat-menu-item (click)="selectCity(city)">{{ city }}</button>
+          </div>
+        </div>
+      </mat-menu>
+    </div>
+    <div class="col-md-2 border-right">
+      <button mat-button [matMenuTriggerFor]="insuranceMenu" (menuOpened)="onMenuOpened()"
+        (menuClosed)="onMenuClosed()">
+        <mat-icon>{{ isInsuranceMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
+        My insurance
+      </button>
+      <div class="row p-2 ml-1 justify-content-center align-items-center">
+        <!-- Insurance mat icon -->
+        <mat-icon class="dropdown-menu-icon">local_hospital</mat-icon>
+        <!-- Selected option -->
+        <span class="dropdown-menu-selected-option d-inline-block text-truncate">{{ selectedInsurance }}</span>
+      </div>
+      <mat-menu #insuranceMenu="matMenu">
+        <div class="row">
+          <div class="col-md-12" *ngFor="let insurance of insurances; let i = index">
+            <button mat-menu-item (click)="selectInsurance(insurance)">{{ insurance }}</button>
+          </div>
+        </div>
+      </mat-menu>
+    </div>
+    <div class="col-md-2 border-right">
+      <mat-form-field appearance="fill">
+        <mat-label>Or search by name</mat-label>
+        <input matInput placeholder="Name">
+      </mat-form-field>
+    </div>
+    <div class="col-md-2 text-white" style="background: rgb(239, 15, 15); padding: - 8px;">
+      <button mat-icon-button (click)="search()" class="justify-content-center align-items-center">
+        <mat-icon>search</mat-icon>
+        <span>Search</span>
+      </button>
+    </div>
+
+  </div>
+</div>
