@@ -12,6 +12,7 @@ import { DefaultLayoutComponent } from './components/layouts/default-layout/defa
 import { DoctorLayoutComponent } from './components/doctor/layouts/doctor-layout/doctor-layout.component';
 import { DoctorHomeComponent } from './components/doctor/home/home.component';
 import { DoctorLoginComponent } from './components/doctor/auth/login/login.component';
+import { GetStartedComponent } from './components/doctor/get-started/get-started.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
     ],
   },
+  { path: 'doctors/get-started', component: GetStartedComponent },
   {
     path: 'doctor',
     component: DoctorLayoutComponent,
@@ -33,7 +35,7 @@ const routes: Routes = [
         path: '',
         component: DoctorComponent,
         children: [
-          { path: '', redirectTo: 'home', pathMatch: 'full' },
+          { path: '', redirectTo: 'doctors/get-started', pathMatch: 'full' },
           { path: 'home', component: DoctorHomeComponent },
           { path: 'signup', component: DoctorSignupComponent },
           { path: 'login', component: DoctorLoginComponent },

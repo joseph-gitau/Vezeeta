@@ -51,4 +51,19 @@ export class DefaultService {
       headers: headers,
     });
   }
+
+  // createDoctor
+  createDoctor(data: any): Observable<any> {
+    // Retrieve the CSRF token from the cookie
+    const csrfToken = this.getCookie('csrftoken');
+
+    // Set the CSRF token in the headers
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken,
+    });
+    console.log(data);
+
+    return this.http.post(baseUrl + 'Doctor/add', data, { headers: headers });
+  }
 }

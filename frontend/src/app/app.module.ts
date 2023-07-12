@@ -40,6 +40,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 // mat-option
 import { MatOptionModule } from '@angular/material/core';
 import { NgToastModule } from 'ng-angular-popup';
+import { GetStartedComponent } from './components/doctor/get-started/get-started.component';
+import { DoctorSignupComponent } from './components/doctor/auth/signup/signup.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,8 @@ import { NgToastModule } from 'ng-angular-popup';
     DoctorLayoutComponent,
     DefaultLayoutComponent,
     DoctorSearchComponent,
+    GetStartedComponent,
+    DoctorSignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +84,7 @@ import { NgToastModule } from 'ng-angular-popup';
     MatDatepickerModule,
     MatCheckboxModule,
     MatNativeDateModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

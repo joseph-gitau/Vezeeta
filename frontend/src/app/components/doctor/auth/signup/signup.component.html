@@ -1,75 +1,83 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
+<div class="container mx-auto">
+  <div class="flex justify-center">
+    <div class="w-8/12">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Doctor Registration</h5>
-          <form method="POST" action="http://127.0.0.1:8000/api/Patient/add">
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="fullName">Full Name</label>
-                <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+          <form [formGroup]="signupForm" (ngSubmit)="addNewDoctor()" enctype="multipart/form-data">
+            <div class="flex flex-wrap -mx-2">
+              <div class="w-full md:w-6/12 px-2">
+                <label for="fullName" class="block">Full Name</label>
+                <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required
+                  formControlName="full_name">
               </div>
-              <div class="form-group col-md-6">
-                <label for="email">Email Address</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter a password" required>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="mobileNumber">Mobile Number</label>
-                <input type="tel" class="form-control" id="mobileNumber" placeholder="Enter your mobile number"
-                  required>
+              <div class="w-full md:w-6/12 px-2">
+                <label for="email" class="block">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email address" required
+                  formControlName="email">
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="specialty">Specialty</label>
-                <input type="text" class="form-control" id="specialty" placeholder="Enter your specialty" required>
+            <div class="flex flex-wrap -mx-2">
+              <div class="w-full md:w-6/12 px-2">
+                <label for="password" class="block">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter a password" required
+                  formControlName="password">
               </div>
-              <div class="form-group col-md-6">
-                <label for="licenseNumber">Medical License Number</label>
+              <div class="w-full md:w-6/12 px-2">
+                <label for="mobileNumber" class="block">Mobile Number</label>
+                <input type="tel" class="form-control" id="mobileNumber" placeholder="Enter your mobile number" required
+                  formControlName="mobile_number">
+              </div>
+            </div>
+            <div class="flex flex-wrap -mx-2">
+              <div class="w-full md:w-6/12 px-2">
+                <label for="specialty" class="block">Specialty</label>
+                <input type="text" class="form-control" id="specialty" placeholder="Enter your specialty" required
+                  formControlName="specialty">
+              </div>
+              <div class="w-full md:w-6/12 px-2">
+                <label for="licenseNumber" class="block">Medical License Number</label>
                 <input type="text" class="form-control" id="licenseNumber" placeholder="Enter your license number"
-                  required>
+                  required formControlName="license_number">
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="affiliation">Clinic or Hospital Affiliation</label>
+            <div class="flex flex-wrap -mx-2">
+              <div class="w-full md:w-6/12 px-2">
+                <label for="affiliation" class="block">Clinic or Hospital Affiliation</label>
                 <input type="text" class="form-control" id="affiliation"
-                  placeholder="Enter your clinic or hospital affiliation">
+                  placeholder="Enter your clinic or hospital affiliation" formControlName="affiliation">
               </div>
-              <div class="form-group col-md-6">
-                <label for="experience">Professional Experience</label>
-                <input type="text" class="form-control" id="experience"
-                  placeholder="Enter your professional experience">
+              <div class="w-full md:w-6/12 px-2">
+                <label for="experience" class="block">Professional Experience</label>
+                <input type="text" class="form-control" id="experience" placeholder="Enter your professional experience"
+                  formControlName="experience">
               </div>
             </div>
             <div class="form-group">
-              <label for="education">Education and Qualifications</label>
+              <label for="education" class="block">Education and Qualifications</label>
               <textarea class="form-control" id="education" rows="3"
-                placeholder="Enter your education and qualifications"></textarea>
+                placeholder="Enter your education and qualifications" formControlName="education"></textarea>
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="languages">Language Proficiency</label>
-                <input type="text" class="form-control" id="languages" placeholder="Enter your language proficiency">
+            <div class="flex flex-wrap -mx-2">
+              <div class="w-full md:w-6/12 px-2">
+                <label for="languages" class="block">Language Proficiency</label>
+                <input type="text" class="form-control" id="languages" placeholder="Enter your language proficiency"
+                  formControlName="language_proficiency">
               </div>
-              <div class="form-group col-md-6">
-                <label for="certifications">Professional Certifications</label>
+              <div class="w-full md:w-6/12 px-2">
+                <label for="certifications" class="block">Professional Certifications</label>
                 <textarea class="form-control" id="certifications" rows="3"
-                  placeholder="Enter your professional certifications"></textarea>
+                  placeholder="Enter your professional certifications"
+                  formControlName="professional_certifications"></textarea>
               </div>
             </div>
             <div class="form-group">
-              <label for="profilePicture">Profile Picture</label>
-              <input type="file" class="form-control-file" id="profilePicture">
+              <label for="profilePicture" class="block">Profile Picture</label>
+              <input type="file" class="form-control-file" id="profilePicture" formControlName="profile_picture">
             </div>
-            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <button type="submit"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Sign
+              Up</button>
           </form>
         </div>
       </div>

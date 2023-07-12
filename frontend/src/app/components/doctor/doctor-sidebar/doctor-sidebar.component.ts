@@ -9,11 +9,18 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class DoctorSidebarComponent {
   sidebarItems: any[] = [
     { name: 'Dashboard', route: '/dashboard', icon: 'dashboard' },
+    // set availability
+    {
+      name: 'Set Availability',
+      route: '/set-availability',
+      icon: 'schedule',
+    },
     {
       name: 'Approve Appointments',
       route: '/approve-appointments',
       icon: 'playlist_add_check',
     },
+
     {
       name: 'Interact with Patients',
       route: '/interact-with-patients',
