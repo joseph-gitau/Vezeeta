@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Patient } from '../models/default.model';
+import { Observable, tap } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from './auth.service';
 
 const baseUrl = 'http://127.0.0.1:8000/api/';
 
@@ -9,7 +10,11 @@ const baseUrl = 'http://127.0.0.1:8000/api/';
   providedIn: 'root',
 })
 export class DefaultService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+    private authService: AuthService
+  ) {}
 
   // Create a new patient
   create(data: any): Observable<any> {
@@ -39,7 +44,7 @@ export class DefaultService {
   // Login a patient
   login(data: any): Observable<any> {
     // Retrieve the CSRF token from the cookie
-    const csrfToken = this.getCookie('csrftoken');
+    const csrfToken = this.cookieService.get('csrftoken');
 
     // Set the CSRF token in the headers
     const headers = new HttpHeaders({
@@ -47,9 +52,31 @@ export class DefaultService {
       'X-CSRFToken': csrfToken,
     });
 
-    return this.http.post(baseUrl + 'Patient/login', data, {
-      headers: headers,
-    });
+    return this.http
+      .post(baseUrl + 'Patient/login', data, {
+        headers: headers,
+        withCredentials: true,
+      })
+      .pipe(
+        tap((response: any) => {
+          console.log(response);
+
+          const sessionid = this.cookieService.get('sessionid');
+          const csrftoken = this.cookieService.get('csrftoken');
+          // get email and name from response
+          const email = response['email'];
+          const fullname = response['name'];
+
+          // Set the cookies with the correct variables
+          this.cookieService.set('sessionid', sessionid);
+          this.cookieService.set('csrftoken', csrftoken);
+          this.cookieService.set('email', email);
+          this.cookieService.set('fullname', fullname);
+
+          // Set the authentication status
+          this.authService.setAuthenticationStatus(true);
+        })
+      );
   }
 
   // createDoctor

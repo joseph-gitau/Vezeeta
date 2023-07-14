@@ -1,14 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DefaultService } from 'src/app/services/default.service';
 import { Patient } from '../../../models/default.model';
 import { NgToastService } from 'ng-angular-popup';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  // loginPatient
+  constructor(
+    private defaultService: DefaultService,
+    private toast: NgToastService,
+    private route: Router,
+    private authService: AuthService
+  ) {}
+  ngOnInit() {
+    // Check if user is already logged in, if so redirect to home page
+    if (this.authService.isAuthenticated()) {
+      this.route.navigate(['/home']);
+    }
+  }
+
   patient: Patient = {
     fullname: '',
     mobile: '',
@@ -18,16 +34,22 @@ export class LoginComponent {
     Password: '',
   };
 
-  // loginPatient
-  constructor(
-    private defaultService: DefaultService,
-    private toast: NgToastService
-  ) {}
-
   loginPatient(): void {
     if (!this.isFormValid()) {
       this.toast.error({
         detail: 'Please fill in all the required fields.',
+        summary: 'Error',
+        duration: 5000,
+      });
+      return;
+    }
+    // Verify the patient's credentials
+    const email = this.patient.email;
+    const password = this.patient.Password;
+    // check if the email is a valid email address
+    if (!email || !email.includes('@')) {
+      this.toast.error({
+        detail: 'Please enter a valid email address.',
         summary: 'Error',
         duration: 5000,
       });
@@ -49,7 +71,15 @@ export class LoginComponent {
         });
         // Redirect to the Login page/Component after 5 seconds
         setTimeout(() => {
-          window.location.href = '/login';
+          this.route.navigate(['/home']);
+        }, 5000);
+      },
+      error: (e) => {
+        console.log(e);
+        this.toast.error({
+          detail: 'Error logging in the patient.',
+          summary: 'Invalid Credentials',
+          duration: 5000,
         });
       },
     });

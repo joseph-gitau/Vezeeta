@@ -61,7 +61,10 @@ def PatientLogin(request):
         # Check if authentication was successful
         if user is not None:
             login(request, user)
-            return JsonResponse({'message': 'Login successful'})
+            # Retrieve the email and name from the authenticated user
+            user_email = user.email
+            user_name = user.fullname
+            return JsonResponse({'message': 'Login successful', 'email': user_email, 'name': user_name})
         else:
             return JsonResponse({'error': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
 
