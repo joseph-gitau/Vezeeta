@@ -1,21 +1,14 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 from default.models import Patient
-from default.models import Doctor
 from default.serializers import PatientSerializer
-from default.serializers import DoctorSerializer
 from rest_framework.decorators import api_view
 import re
-from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
-#  import the PatientEmailBackend
-import default.backends
-from rest_framework.decorators import api_view, parser_classes
-from rest_framework.parsers import MultiPartParser, FormParser
+from django.views.decorators.csrf import csrf_exempt
 
 
 @api_view(['POST'])
@@ -51,29 +44,31 @@ def PatientCreate(request):
         return JsonResponse(Patient_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@csrf_exempt
 @api_view(['POST'])
 def PatientLogin(request):
     if request.method == 'POST':
         email = request.data.get('email')
         password = request.data.get('password')
 
+        # Check if the email and password are provided
         if not email or not password:
-            return Response({'error': 'Email and password are required.'}, status=400)
+            return JsonResponse({'error': 'Email and password are required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        user = authenticate(request=request, email=email, password=password)
+        # Authenticate the user
+        user = authenticate(request, email=email, password=password)
 
+        # Check if authentication was successful
         if user is not None:
             login(request, user)
-            token, _ = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key})
+            return JsonResponse({'message': 'Login successful'})
         else:
-            return Response({'error': 'Invalid credentials.'}, status=401)
-
-    return Response({'error': 'Invalid request.'}, status=400)
-
+            return JsonResponse({'error': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
 
 # api/Doctor/add
-@api_view(['POST'])
+
+
+""" @api_view(['POST'])
 @parser_classes([MultiPartParser, FormParser])
 def DoctorCreate(request):
     if request.method == 'POST':
@@ -105,3 +100,4 @@ def DoctorCreate(request):
             return JsonResponse(Doctor_serializer.data, status=status.HTTP_201_CREATED)
 
         return JsonResponse(Doctor_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+ """

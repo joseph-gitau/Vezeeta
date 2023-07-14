@@ -83,7 +83,7 @@ export class DoctorSignupComponent implements OnInit {
     );
     formData.append('profile_picture', this.signupForm.value.profile_picture);
 
-    this.defaultService.createDoctor(formData, { headers }).subscribe({
+    this.defaultService.createDoctor(formData).subscribe({
       next: (res) => {
         console.log(res);
         this.toast.success({

@@ -43,6 +43,7 @@ import { NgToastModule } from 'ng-angular-popup';
 import { GetStartedComponent } from './components/doctor/get-started/get-started.component';
 import { DoctorSignupComponent } from './components/doctor/auth/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SetAvailabilityComponent } from './components/doctor/set-availability/set-availability.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DoctorSearchComponent,
     GetStartedComponent,
     DoctorSignupComponent,
+    SetAvailabilityComponent,
   ],
   imports: [
     BrowserModule,

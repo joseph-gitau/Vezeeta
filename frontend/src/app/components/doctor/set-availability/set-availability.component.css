@@ -1,0 +1,33 @@
+.container {
+  margin-top: 20px;
+}
+
+.day-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.day {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin-top: 0;
+}
+
+.add-shift {
+  margin-top: 10px;
+}
+
+.no-shifts {
+  margin-top: 5px;
+}
+
+.btn {
+  margin-left: 5px;
+}
+
+h3 + div {
+  margin-bottom: 10px;
+}

@@ -1,105 +1,90 @@
-<div class="bg-light col-md-12 rounded">
-  <div class="row">
-    <div class="col-md-2 custom-menu-col border-right" [ngClass]="{'highlight-menu': isSpecialtyMenuOpen}">
-      <button mat-button [matMenuTriggerFor]="specialtyMenu" (menuOpened)="onSpecialtyMenuOpened()"
-        (menuClosed)="onSpecialtyMenuClosed()" style="position: relative;">
+<div class="bg-white rounded ">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 p-4">
+    <div class="col-span-1">
+      <button mat-button [matMenuTriggerFor]="specialtyMenu" [ngClass]="{'highlight-menu': isSpecialtyMenuOpen}">
         <mat-icon>{{ isSpecialtyMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
         Select a specialty
       </button>
-      <div class="row p-2 d-flex justify-content-center align-items-center">
-        <!-- Speciality mat icon -->
+      <div class="flex items-center p-2">
         <mat-icon class="dropdown-menu-icon">local_hospital</mat-icon>
-        <!-- Selected option -->
-        <span class="dropdown-menu-selected-option d-inline-block text-truncate text-primary">{{ selectedSpecialty
-          }}</span>
+        <span class="dropdown-menu-selected-option text-primary truncate">{{ selectedSpecialty }}</span>
       </div>
       <mat-menu #specialtyMenu="matMenu">
-        <div class="row dropdown-menu-menu">
-          <div class="col-md-12" *ngFor="let specialty of specialties; let i = index">
-            <button mat-menu-item (click)="selectSpecialty(specialty)" class="text-primary">{{ specialty }}</button>
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <button mat-menu-item (click)="selectSpecialty(specialty)" class="text-primary"
+            *ngFor="let specialty of specialties">
+            {{ specialty }}
+          </button>
         </div>
       </mat-menu>
     </div>
 
-    <div class="col-md-2 border-right" [ngClass]="{'highlight-menu': isCountyMenuOpen}">
-      <button mat-button [matMenuTriggerFor]="countyMenu" (menuOpened)="onCountyMenuOpened()"
-        (menuClosed)="onCountyMenuClosed()">
+    <div class="col-span-1">
+      <button mat-button [matMenuTriggerFor]="countyMenu" [ngClass]="{'highlight-menu': isCountyMenuOpen}">
         <mat-icon>{{ isCountyMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
         In this county
       </button>
-      <div class="row p-2 ml-1 justify-content-center align-items-center">
-        <!-- County mat icon -->
+      <div class="flex items-center p-2">
         <mat-icon class="dropdown-menu-icon">location_city</mat-icon>
-        <!-- Selected option -->
-        <span class="dropdown-menu-selected-option d-inline-block text-truncate text-primary">{{ selectedCounty
-          }}</span>
+        <span class="dropdown-menu-selected-option text-primary truncate">{{ selectedCounty }}</span>
       </div>
       <mat-menu #countyMenu="matMenu">
-        <div class="row">
-          <div class="col-md-12" *ngFor="let county of counties; let i = index">
-            <button mat-menu-item (click)="selectCounty(county)">{{ county }}</button>
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <button mat-menu-item (click)="selectCounty(county)" *ngFor="let county of counties">
+            {{ county }}
+          </button>
         </div>
       </mat-menu>
     </div>
-    <div class="col-md-2 border-right" [ngClass]="{'highlight-menu': isCityMenuOpen}">
-      <button mat-button [matMenuTriggerFor]="cityMenu" (menuOpened)="onCityMenuOpened()"
-        (menuClosed)="onCityMenuClosed()">
+
+    <div class="col-span-1">
+      <button mat-button [matMenuTriggerFor]="cityMenu" [ngClass]="{'highlight-menu': isCityMenuOpen}">
         <mat-icon>{{ isCityMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
         In this city
       </button>
-      <div class="row p-2 ml-1 justify-content-center align-items-center">
-        <!-- City mat icon -->
+      <div class="flex items-center p-2">
         <mat-icon class="dropdown-menu-icon">location_on</mat-icon>
-        <!-- Selected option -->
-        <span class="dropdown-menu-selected-option d-inline-block text-truncate text-primary">{{ selectedCity }}</span>
+        <span class="dropdown-menu-selected-option text-primary truncate">{{ selectedCity }}</span>
       </div>
       <mat-menu #cityMenu="matMenu">
-        <div class="row">
-          <div class="col-md-12" *ngFor="let city of coCities; let i = index">
-            <button mat-menu-item (click)="selectCity(city)">{{ city }}</button>
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <button mat-menu-item (click)="selectCity(city)" *ngFor="let city of coCities">
+            {{ city }}
+          </button>
         </div>
       </mat-menu>
     </div>
-    <div class="col-md-2 border-right" [ngClass]="{'highlight-menu': isInsuranceMenuOpen}">
-      <button mat-button [matMenuTriggerFor]="insuranceMenu" (menuOpened)="onInsuranceMenuOpened()"
-        (menuClosed)="onInsuranceMenuClosed()">
+
+    <div class="col-span-1">
+      <button mat-button [matMenuTriggerFor]="insuranceMenu" [ngClass]="{'highlight-menu': isInsuranceMenuOpen}">
         <mat-icon>{{ isInsuranceMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
         My insurance
       </button>
-      <div class="row p-2 ml-1 justify-content-center align-items-center">
-        <!-- Insurance mat icon -->
+      <div class="flex items-center p-2">
         <mat-icon class="dropdown-menu-icon">local_hospital</mat-icon>
-        <!-- Selected option -->
-        <span class="dropdown-menu-selected-option d-inline-block text-truncate text-primary">{{ selectedInsurance
-          }}</span>
+        <span class="dropdown-menu-selected-option text-primary truncate">{{ selectedInsurance }}</span>
       </div>
       <mat-menu #insuranceMenu="matMenu">
-        <div class="row">
-          <div class="col-md-12" *ngFor="let insurance of insurances; let i = index">
-            <button mat-menu-item (click)="selectInsurance(insurance)">{{ insurance }}</button>
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <button mat-menu-item (click)="selectInsurance(insurance)" *ngFor="let insurance of insurances">
+            {{ insurance }}
+          </button>
         </div>
       </mat-menu>
     </div>
-    <div class="col-md-4">
-      <div class="row">
-        <div class="col-md-8 border-right">
-          <mat-form-field appearance="fill" class="pt-1">
-            <mat-label>Or search by name</mat-label>
-            <input matInput placeholder="Name">
-          </mat-form-field>
-        </div>
-        <div class="col-md-4 text-white rounded-end" style="background: rgb(239, 15, 15);">
-          <button mat-icon-button (click)="search()" class=" justify-content-center align-items-center rounded-end">
-            <mat-icon>search</mat-icon>
-            <span>Search</span>
-          </button>
-        </div>
+
+    <div class="col-span-2 md:col-span-2">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <mat-form-field appearance="fill" class="pt-1">
+          <mat-label>Or search by name</mat-label>
+          <input matInput placeholder="Name">
+        </mat-form-field>
+        <button mat-icon-button (click)="search()"
+          class="text-white rounded-full bg-red-500 md:ml-4 flex items-center justify-center">
+          <mat-icon>search</mat-icon>
+          <span class="ml-2">Search</span>
+        </button>
       </div>
     </div>
-
   </div>
 </div>

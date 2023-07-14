@@ -9,5 +9,5 @@ urlpatterns = [
     # Login
     re_path(r'^api/Patient/login', views.PatientLogin),
     # add doctor
-    re_path(r'^api/Doctor/add', views.DoctorCreate),
+    # re_path(r'^api/Doctor/add', views.DoctorCreate),
 ]

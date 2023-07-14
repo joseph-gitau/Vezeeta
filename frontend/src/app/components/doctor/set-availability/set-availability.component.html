@@ -1,0 +1,32 @@
+<div class="container mx-auto">
+  <h2 class="text-2xl font-bold mb-4">Set Availability</h2>
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-7">
+    <div class="col-span-1" *ngFor="let day of days">
+      <h3 class="text-lg font-semibold">{{ day }}</h3>
+      <div *ngIf="!isDayShiftsEmpty(day)">
+        <div class="mb-2" *ngFor="let shift of getDayShifts(day)">
+          {{ shift.startTime }} - {{ shift.endTime }}
+          <button (click)="removeShift(day, shift)"
+            class="bg-red-500 text-white text-sm py-1 px-2 rounded">Remove</button>
+        </div>
+      </div>
+      <div *ngIf="isDayShiftsEmpty(day)" class="text-gray-500">No shifts added for this day</div>
+      <div class="mt-4">
+        <label class="block">Start Time:</label>
+        <input type="time" [(ngModel)]="newShift.startTime" class="block border border-gray-300 rounded p-1">
+        <label class="block">End Time:</label>
+        <input type="time" [(ngModel)]="newShift.endTime" class="block border border-gray-300 rounded p-1">
+        <button (click)="addShift(day)" class="bg-blue-500 text-white py-2 px-4 rounded mt-2">Add Shift</button>
+      </div>
+    </div>
+  </div>
+  <h3 class="text-lg font-semibold mt-4">Summary</h3>
+  <div class="mt-2">
+    <div *ngFor="let day of days">
+      <div *ngIf="!isDayShiftsEmpty(day)">
+        <strong>{{ day }}:</strong>
+        <span *ngFor="let shift of getDayShifts(day)" class="mr-2">{{ shift.startTime }} - {{ shift.endTime }}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,18 +1,17 @@
-from django.contrib.auth.backends import BaseBackend
-from default.models import Patient
+from django.contrib.auth import get_user_model
+from django.contrib.auth.backends import ModelBackend
 
 
-class PatientEmailBackend(BaseBackend):
-    def authenticate(self, request, email=None, password=None):
+class EmailBackend(ModelBackend):
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        UserModel = get_user_model()
         try:
-            patient = Patient.objects.get(email=email)
-            if patient.check_password(password):
-                return patient
-        except Patient.DoesNotExist:
+            user = UserModel.objects.get(email=username)
+            if user.check_password(password):
+                return user
+        except UserModel.DoesNotExist:
             return None
-
-    def get_user(self, user_id):
-        try:
-            return Patient.objects.get(pk=user_id)
-        except Patient.DoesNotExist:
-            return None
+        else:
+            if user.check_password(password) and self.user_can_authenticate(user):
+                return user
+        return None

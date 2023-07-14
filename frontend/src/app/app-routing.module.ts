@@ -13,6 +13,7 @@ import { DoctorLayoutComponent } from './components/doctor/layouts/doctor-layout
 import { DoctorHomeComponent } from './components/doctor/home/home.component';
 import { DoctorLoginComponent } from './components/doctor/auth/login/login.component';
 import { GetStartedComponent } from './components/doctor/get-started/get-started.component';
+import { SetAvailabilityComponent } from './components/doctor/set-availability/set-availability.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,7 @@ const routes: Routes = [
           { path: 'signup', component: DoctorSignupComponent },
           { path: 'login', component: DoctorLoginComponent },
           // Add other doctors' section routes here
+          { path: 'set-availability', component: SetAvailabilityComponent },
         ],
       },
     ],

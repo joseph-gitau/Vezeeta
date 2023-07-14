@@ -13,10 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 # from django.contrib.auth.backends import EmailBackend
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -28,7 +26,6 @@ SECRET_KEY = 'django-insecure-a!4xgd268q_1ljo4)-n*(^+g6q8@7%$**ghy1o**_%x@_!5f%d
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -44,7 +41,9 @@ INSTALLED_APPS = [
     # Default App
     'default.apps.DefaultConfig',
     # Cors Headers
-    'corsheaders'
+    'corsheaders',
+    # Django Rest Auth
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -95,7 +93,6 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -117,10 +114,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Auth backend
 AUTHENTICATION_BACKENDS = [
-    # EmailBackend
-    'django.contrib.auth.backends.EmailBackend',
+    'default.backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+AUTH_USER_MODEL = 'default.Patient'
 
 
 # Internationalization
@@ -133,7 +130,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

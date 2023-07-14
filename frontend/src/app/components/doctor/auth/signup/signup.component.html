@@ -5,11 +5,13 @@
         <div class="card-body">
           <h5 class="card-title">Doctor Registration</h5>
           <form [formGroup]="signupForm" (ngSubmit)="addNewDoctor()" enctype="multipart/form-data">
-            <div class="flex flex-wrap -mx-2">
+            <div class="flex flex-wrap mb-6">
               <div class="w-full md:w-6/12 px-2">
-                <label for="fullName" class="block">Full Name</label>
-                <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required
-                  formControlName="full_name">
+                <label for="fullName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full
+                  Name</label>
+                <input type="text"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  id="fullName" placeholder="Enter your full name" required formControlName="full_name">
               </div>
               <div class="w-full md:w-6/12 px-2">
                 <label for="email" class="block">Email Address</label>

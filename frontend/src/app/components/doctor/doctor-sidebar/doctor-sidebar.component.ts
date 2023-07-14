@@ -12,7 +12,7 @@ export class DoctorSidebarComponent {
     // set availability
     {
       name: 'Set Availability',
-      route: '/set-availability',
+      route: '/doctor/set-availability',
       icon: 'schedule',
     },
     {
