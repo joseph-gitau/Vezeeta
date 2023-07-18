@@ -10,6 +10,7 @@ import re
 from django.contrib.auth.hashers import make_password
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import FileUploadParser
+from django.middleware.csrf import get_token
 
 # File parser
 parser_classes = (FileUploadParser,)
@@ -68,9 +69,45 @@ def PatientLogin(request):
             # Retrieve the email and name from the authenticated user
             user_email = user.email
             user_name = user.fullname
-            return JsonResponse({'message': 'Login successful', 'email': user_email, 'name': user_name})
+
+            # Get the CSRF token and session ID
+            csrftoken = get_token(request)
+            sessionid = request.session.session_key
+
+            # Set the CSRF token and session ID as cookies
+            response = JsonResponse(
+                {'message': 'Login successful', 'email': user_email, 'name': user_name})
+            response.set_cookie('csrftoken', csrftoken)
+            response.set_cookie('sessionid', sessionid)
+
+            return response
         else:
             return JsonResponse({'error': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+""" @csrf_exempt
+@api_view(['POST'])
+def PatientLogin(request):
+    if request.method == 'POST':
+        email = request.data.get('email')
+        password = request.data.get('password')
+
+        # Check if the email and password are provided
+        if not email or not password:
+            return JsonResponse({'error': 'Email and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Authenticate the user
+        user = authenticate(request, email=email, password=password)
+
+        # Check if authentication was successful
+        if user is not None:
+            login(request, user)
+            # Retrieve the email and name from the authenticated user
+            user_email = user.email
+            user_name = user.fullname
+            return JsonResponse({'message': 'Login successful', 'email': user_email, 'name': user_name})
+        else:
+            return JsonResponse({'error': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED) """
 
 # api/Doctor/add
 

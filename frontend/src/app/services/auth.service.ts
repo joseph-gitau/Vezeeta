@@ -12,9 +12,13 @@ export class AuthService {
   constructor(private cookieService: CookieService) {
     // Check if the user is already logged in by examining the cookies
     const sessionid = this.cookieService.get('sessionid');
-    // ... Check any other required cookies
+    const email = this.cookieService.get('email');
+    const fullname = this.cookieService.get('fullname');
+    const csrftoken = this.cookieService.get('csrftoken');
 
-    this.loggedIn = !!sessionid;
+    this.loggedIn = !!fullname && !!email;
+    // this.loggedIn = !!sessionid && !!csrftoken && !!fullname && !!email;
+    // this.loggedIn = !!sessionid;
   }
 
   isAuthenticated(): boolean {

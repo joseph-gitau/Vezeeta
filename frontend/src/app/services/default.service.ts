@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpXsrfTokenExtractor,
+} from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './auth.service';
@@ -13,6 +17,7 @@ const baseUrl = 'http://127.0.0.1:8000/api/';
 export class DefaultService {
   constructor(
     private http: HttpClient,
+    private tokenExtractor: HttpXsrfTokenExtractor,
     private cookieService: CookieService,
     private authService: AuthService
   ) {}
@@ -45,7 +50,7 @@ export class DefaultService {
   // Login a patient
   login(data: any): Observable<any> {
     // Retrieve the CSRF token from the cookie
-    const csrfToken = this.cookieService.get('csrftoken');
+    const csrfToken = this.getCookie('csrftoken');
 
     // Set the CSRF token in the headers
     const headers = new HttpHeaders({

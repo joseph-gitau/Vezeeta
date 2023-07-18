@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
       },
     ];
 
-    this.displayErrors(error_test);
+    // this.displayErrors(error_test);
   }
 
   // Loop through the error_test array and display each error with name and message

@@ -45,6 +45,7 @@ import { DoctorSignupComponent } from './components/doctor/auth/signup/signup.co
 import { ReactiveFormsModule } from '@angular/forms';
 import { SetAvailabilityComponent } from './components/doctor/set-availability/set-availability.component';
 import { DoctorLoginComponent } from './components/doctor/auth/login/login.component';
+import { DoctorProfileComponent } from './components/doctor/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { DoctorLoginComponent } from './components/doctor/auth/login/login.compo
     DoctorSignupComponent,
     DoctorLoginComponent,
     SetAvailabilityComponent,
+    DoctorProfileComponent,
   ],
   imports: [
     BrowserModule,

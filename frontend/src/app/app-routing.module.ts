@@ -14,6 +14,7 @@ import { DoctorHomeComponent } from './components/doctor/home/home.component';
 import { DoctorLoginComponent } from './components/doctor/auth/login/login.component';
 import { GetStartedComponent } from './components/doctor/get-started/get-started.component';
 import { SetAvailabilityComponent } from './components/doctor/set-availability/set-availability.component';
+import { DoctorProfileComponent } from './components/doctor/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ const routes: Routes = [
           { path: 'login', component: DoctorLoginComponent },
           // Add other doctors' section routes here
           { path: 'set-availability', component: SetAvailabilityComponent },
+          { path: 'profile', component: DoctorProfileComponent },
         ],
       },
     ],

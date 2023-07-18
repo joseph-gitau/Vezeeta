@@ -24,29 +24,41 @@
             <a class="text-gray-900 hover:text-blue-500" href="#">Appointments</a>
           </li>
           <li class="relative">
-            <a class="text-gray-900 hover:text-blue-500 hover:cursor-pointer flex flex-row justify-center items-center"
-              id="dropdownDefaultButton" data-dropdown-toggle="dropdown" (click)="toggleUserDropdown()">
-              <i class="fas fa-user"></i> User Profile <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="m1 1 4 4 4-4" />
-              </svg>
-            </a>
+            <ng-container *ngIf="isLoggedIn(); else noauth">
+              <a class="text-gray-900 hover:text-blue-500 hover:cursor-pointer flex flex-row justify-center items-center"
+                id="dropdownDefaultButton" data-dropdown-toggle="dropdown" (click)="toggleUserDropdown()">
+                <i class="fas fa-user"></i> Hello, {{ getUsername() }} <svg class="w-2.5 h-2.5 ml-2.5"
+                  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+                </svg>
+              </a>
+            </ng-container>
+            <ng-template #noauth>
+              <a class="text-gray-900 hover:text-blue-500 hover:cursor-pointer flex flex-row justify-center items-center"
+                id="dropdownDefaultButton" data-dropdown-toggle="dropdown" (click)="toggleUserDropdown()">
+                <i class="fas fa-user"></i> User Profile <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+                </svg>
+              </a>
+            </ng-template>
             <div class="absolute right-0 mt-2 py-2 w-48 bg-white border shadow-lg rounded-lg hidden user-dropdown"
               id="dropdown" [ngClass]="{'hidden': !showUserDropdown}">
               <div aria-labelledby="dropdownDefaultButton">
-                <!-- <ng-container *ngIf="isAuthenticated; else authButtons"> -->
-                <!-- User Profile Details and Settings -->
-                <a class="block px-4 py-2 text-gray-900 hover:bg-blue-200" href="#">Profile</a>
-                <a class="block px-4 py-2 text-gray-900 hover:bg-blue-200" href="#">Settings</a>
-                <div class="border-b my-2"></div>
-                <a class="block px-4 py-2 text-gray-900 hover:bg-blue-200" href="#">Logout</a>
-                <!-- </ng-container> -->
-                <!-- <ng-template #authButtons> -->
-                <!-- Non-Authenticated User Links -->
-                <a class="block px-4 py-2 text-gray-900 hover:bg-blue-200" routerLink="/doctor/signup">Signup</a>
-                <a class="block px-4 py-2 text-gray-900 hover:bg-blue-200" routerLink="/doctor/login">Login</a>
-                <!-- </ng-template> -->
+                <ng-container *ngIf="isLoggedIn(); else authButtons">
+                  <!-- User Profile Details and Settings -->
+                  <a class="block px-4 py-2 text-gray-900 hover:bg-blue-200" routerLink="/doctor/profile">Profile</a>
+                  <a class="block px-4 py-2 text-gray-900 hover:bg-blue-200" href="#">Settings</a>
+                  <div class="border-b my-2"></div>
+                  <a class="block px-4 py-2 text-gray-900 hover:bg-blue-200" href="#">Logout</a>
+                </ng-container>
+                <ng-template #authButtons>
+                  <!-- Non-Authenticated User Links -->
+                  <a class="block px-4 py-2 text-gray-900 hover:bg-blue-200" routerLink="/doctor/signup">Signup</a>
+                  <a class="block px-4 py-2 text-gray-900 hover:bg-blue-200" routerLink="/doctor/login">Login</a>
+                </ng-template>
               </div>
             </div>
           </li>
