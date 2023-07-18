@@ -20,6 +20,6 @@ export class NavbarComponent {
   }
 
   logout() {
-    this.authService.setAuthenticationStatus(false);
+    this.authService.logout();
   }
 }

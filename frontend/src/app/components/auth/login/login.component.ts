@@ -23,6 +23,52 @@ export class LoginComponent implements OnInit {
     if (this.authService.isAuthenticated()) {
       this.route.navigate(['/home']);
     }
+
+    // Test
+    const error_test = [
+      {
+        headers: {
+          normalizedNames: {},
+          lazyUpdate: null,
+        },
+        status: 400,
+        statusText: 'Bad Request',
+        url: 'http://127.0.0.1:8000/api/Patient/add',
+        ok: false,
+        name: 'HttpErrorResponse',
+        message:
+          'Http failure response for http://127.0.0.1:8000/api/Patient/add: 400 Bad Request',
+        error: {
+          email: ['patient with this email already exists.'],
+          email2: ['patient with this email already exists.'],
+          email3: ['patient with this email already exists.'],
+        },
+      },
+    ];
+
+    this.displayErrors(error_test);
+  }
+
+  // Loop through the error_test array and display each error with name and message
+  displayErrors(errors: any[]): void {
+    errors.forEach((error) => {
+      this.displayErrorMessages(error);
+    });
+  }
+
+  // Loop through the error object and display the error messages
+  displayErrorMessages(error: any): void {
+    const errorObject = error.error;
+    for (const key in errorObject) {
+      if (errorObject.hasOwnProperty(key)) {
+        const element = errorObject[key];
+        this.toast.error({
+          detail: `Error Name: ${key}, Message: ${element[0]}`,
+          summary: 'Error',
+          duration: 5000,
+        });
+      }
+    }
   }
 
   patient: Patient = {

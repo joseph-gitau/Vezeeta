@@ -4,6 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './auth.service';
 
+// const baseUrl = 'https://5834-102-68-77-227.ngrok-free.app/api/';
 const baseUrl = 'http://127.0.0.1:8000/api/';
 
 @Injectable({
@@ -81,16 +82,46 @@ export class DefaultService {
 
   // createDoctor
   createDoctor(data: any): Observable<any> {
+    const headers = new HttpHeaders();
+
+    return this.http.post(baseUrl + 'Doctor/add', data, { headers });
+  }
+
+  // Login a doctor
+  loginDoctor(data: any): Observable<any> {
     // Retrieve the CSRF token from the cookie
-    const csrfToken = this.getCookie('csrftoken');
+    const csrfToken = this.cookieService.get('csrftoken');
 
     // Set the CSRF token in the headers
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-CSRFToken': csrfToken,
     });
-    console.log(data);
 
-    return this.http.post(baseUrl + 'Doctor/add', data, { headers: headers });
+    return this.http
+      .post(baseUrl + 'Doctor/login', data, {
+        headers: headers,
+        withCredentials: true,
+      })
+      .pipe(
+        tap((response: any) => {
+          console.log(response);
+
+          const sessionid = this.cookieService.get('sessionid');
+          const csrftoken = this.cookieService.get('csrftoken');
+          // get email and name from response
+          const email = response['email'];
+          const fullname = response['name'];
+
+          // Set the cookies with the correct variables
+          this.cookieService.set('sessionid', sessionid);
+          this.cookieService.set('csrftoken', csrftoken);
+          this.cookieService.set('email', email);
+          this.cookieService.set('fullname', fullname);
+
+          // Set the authentication status
+          this.authService.setAuthenticationStatus(true);
+        })
+      );
   }
 }

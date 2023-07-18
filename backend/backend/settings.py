@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 # from django.contrib.auth.backends import EmailBackend
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -136,6 +137,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -144,5 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS_ALL = False
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:4200',
+    'https://5834-102-68-77-227.ngrok-free.app',
+    'http://5834-102-68-77-227.ngrok-free.app'
 )
 CORS_ALLOW_CREDENTIALS = True

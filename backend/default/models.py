@@ -25,7 +25,7 @@ class Patient(AbstractBaseUser, PermissionsMixin):
     mobile = models.CharField(max_length=100)
     email = models.CharField(max_length=100, unique=True)
     gender = models.CharField(max_length=100)
-    Birthdate = models.DateField()
+    Birthdate = models.DateField(null=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
@@ -54,7 +54,65 @@ class Patient(AbstractBaseUser, PermissionsMixin):
     )
 
 
-class Doctor(models.Model):
+class DoctorManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('The Email field must be set')
+
+        email = self.normalize_email(email)
+        doctor = self.model(email=email, **extra_fields)
+        doctor.set_password(password)
+        doctor.save()
+        return doctor
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(email, password, **extra_fields)
+
+
+class Doctor(AbstractBaseUser, PermissionsMixin):
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    mobile_number = models.CharField(max_length=100)
+    specialty = models.CharField(max_length=100)
+    license_number = models.CharField(max_length=100)
+    affiliation = models.CharField(max_length=100, blank=True)
+    experience = models.CharField(max_length=100, blank=True)
+    education = models.TextField(blank=True)
+    language_proficiency = models.CharField(max_length=100, blank=True)
+    professional_certifications = models.TextField(blank=True)
+    profile_picture = models.ImageField(
+        upload_to='doctor_profiles/', blank=True)
+
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=False)
+
+    objects = DoctorManager()
+
+    USERNAME_FIELD = 'email'
+
+    groups = models.ManyToManyField(
+        'auth.Group',
+        verbose_name='groups',
+        blank=True,
+        help_text='The groups this user belongs to.',
+        related_name='doctor_set',  # Added related_name
+        related_query_name='doctor'
+    )
+
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        verbose_name='user permissions',
+        blank=True,
+        help_text='Specific permissions for this user.',
+        related_name='doctor_set',  # Added related_name
+        related_query_name='doctor'
+    )
+
+
+""" class Doctor(models.Model):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     password = models.CharField(max_length=100)
@@ -70,4 +128,4 @@ class Doctor(models.Model):
         upload_to='doctor_profiles/', blank=True)
 
     def __str__(self):
-        return self.full_name
+        return self.full_name """

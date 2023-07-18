@@ -30,4 +30,15 @@ export class AuthService {
     const fullname = this.cookieService.get('fullname');
     return fullname;
   }
+
+  // logout method
+  logout() {
+    this.cookieService.delete('sessionid');
+    this.cookieService.delete('fullname');
+    this.cookieService.delete('csrftoken');
+    this.cookieService.delete('email');
+    this.setAuthenticationStatus(false);
+    // Redirect to the login page
+    window.location.href = '/login';
+  }
 }

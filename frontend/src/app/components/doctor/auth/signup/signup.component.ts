@@ -46,14 +46,12 @@ export class DoctorSignupComponent implements OnInit {
       education: ['', Validators.required],
       language_proficiency: ['', Validators.required],
       professional_certifications: ['', Validators.required],
-      profile_picture: ['', Validators.required],
+      // profile_picture: [null, Validators.required],
     });
   }
 
   // Create a new doctor
   addNewDoctor(): void {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
     if (!this.signupForm.valid) {
       this.toast.error({
         detail: 'Please fill in all the required fields.',
@@ -81,7 +79,7 @@ export class DoctorSignupComponent implements OnInit {
       'professional_certifications',
       this.signupForm.value.professional_certifications
     );
-    formData.append('profile_picture', this.signupForm.value.profile_picture);
+    // formData.append('profile_picture', this.signupForm.value.profile_picture);
 
     this.defaultService.createDoctor(formData).subscribe({
       next: (res) => {
@@ -93,22 +91,20 @@ export class DoctorSignupComponent implements OnInit {
         });
         // Redirect to the Login page/Component after 5 seconds
         setTimeout(() => {
-          window.location.href = 'doctor/login';
+          window.location.href = '/doctor/login';
         }, 5000);
       },
       error: (e) => {
         console.log(e);
-        this.toast.error({
-          detail: 'Error creating doctor!',
-          summary: 'Error',
-          duration: 5000,
-        });
-        if (e.error && e.error.error) {
-          const errorMessage = e.error.error;
-          console.log(`Error: ${errorMessage}`);
+        const errorObject = e.error;
+        const errorKeys = Object.keys(errorObject);
+        const errorValues = Object.values(errorObject);
+        for (let i = 0; i < errorKeys.length; i++) {
+          const key = errorKeys[i];
+          const element = errorObject[key];
           this.toast.error({
-            detail: 'Error',
-            summary: errorMessage,
+            detail: `Error!: ${key}`,
+            summary: `${element}`,
             duration: 5000,
           });
         }
