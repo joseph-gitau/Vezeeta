@@ -84,6 +84,8 @@ class Doctor(AbstractBaseUser, PermissionsMixin):
     professional_certifications = models.TextField(blank=True)
     profile_picture = models.ImageField(
         upload_to='doctor_profiles/', blank=True)
+    practice_liscence = models.ImageField(
+        upload_to='doctor_profiles/', blank=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)

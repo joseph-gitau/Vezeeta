@@ -3,6 +3,7 @@ import {
   HttpClient,
   HttpHeaders,
   HttpXsrfTokenExtractor,
+  HttpParams,
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
@@ -126,6 +127,45 @@ export class DefaultService {
 
           // Set the authentication status
           this.authService.setAuthenticationStatus(true);
+        })
+      );
+  }
+
+  // getDoctorProfile;
+  getDoctorProfile(data: any): Observable<any> {
+    const headers = new HttpHeaders();
+    const params = new HttpParams().set('doctorId', data); // Replace 'doctorId' with the appropriate parameter name
+
+    return this.http.get(baseUrl + 'Doctor/getProfile', { headers, params });
+  }
+
+  updateDoctorProfile(data: any): Observable<any> {
+    console.log('Form Values:', data);
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Append each key-value pair from the data object to the FormData
+    Object.keys(data).forEach((key) => {
+      formData.append(key, data[key]);
+    });
+
+    // Retrieve the CSRF token from the cookie
+    const csrfToken = this.cookieService.get('csrftoken');
+
+    // Set the CSRF token in the headers
+    const headers = new HttpHeaders({
+      'X-CSRFToken': csrfToken,
+    });
+
+    // Make the PUT request with the FormData object
+    return this.http
+      .put(baseUrl + 'Doctor/updateProfile', formData, {
+        headers,
+        withCredentials: true,
+      })
+      .pipe(
+        tap((response: any) => {
+          console.log(response);
         })
       );
   }

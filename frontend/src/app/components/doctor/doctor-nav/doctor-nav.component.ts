@@ -15,14 +15,14 @@ export class DoctorNavComponent {
     this.showUserDropdown = !this.showUserDropdown;
   }
   isLoggedIn(): boolean {
-    console.log(this.authService.isAuthenticated());
+    // console.log(this.authService.isAuthenticated());
     return this.authService.isAuthenticated();
   }
 
   getUsername(): string {
     // Get the fullname from the cookies
     const fullname = this.authService.getFullname();
-    console.log(fullname);
+    // console.log(fullname);
     return fullname;
   }
 

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # Django Rest Auth
     'rest_framework.authtoken',
+    'django_seed',
 ]
 
 MIDDLEWARE = [

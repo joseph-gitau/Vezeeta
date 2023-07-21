@@ -138,8 +138,9 @@ def DoctorCreate(request, *args, **kwargs):
         return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 # DoctorLogin
+
+
 @csrf_exempt
 @api_view(['POST'])
 def DoctorLogin(request):
@@ -163,3 +164,45 @@ def DoctorLogin(request):
             return JsonResponse({'message': 'Login successful', 'email': user_email, 'name': user_name})
         else:
             return JsonResponse({'error': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
+
+# DoctorProfile
+
+
+@api_view(['GET'])
+def DoctorProfile(request):
+    if request.method == 'GET':
+        # Get data from the request
+        # Change 'email' to 'doctorId' here
+        email = request.GET.get('doctorId')
+
+        # get the doctor with the given email
+        try:
+            doctor = Doctor.objects.get(email=email)
+        except Doctor.DoesNotExist:
+            return JsonResponse({'error': 'Doctor not found'}, status=404)
+
+        # Serialize the doctor
+        serializer = DoctorSerializer(doctor, many=False)
+        return JsonResponse(serializer.data, safe=False)
+
+# DoctorUpdateProfile
+
+
+@api_view(['PUT'])
+def DoctorUpdateProfile(request):
+    if request.method == 'PUT':
+        # Get data from the request
+        email = request.data.get('email')
+
+        # get the doctor with the given email
+        try:
+            doctor = Doctor.objects.get(email=email)
+        except Doctor.DoesNotExist:
+            return JsonResponse({'error': 'Doctor not found'}, status=404)
+
+        # Serialize the doctor
+        serializer = DoctorSerializer(doctor, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

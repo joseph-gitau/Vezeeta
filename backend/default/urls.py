@@ -15,6 +15,10 @@ urlpatterns = [
     re_path(r'^api/Doctor/add', views.DoctorCreate),
     # Doctor/login
     re_path(r'^api/Doctor/login', views.DoctorLogin),
+    # http://127.0.0.1:8000/api/Doctor/getProfile?doctorId=bot@gmail.com
+    re_path(r'^api/Doctor/getProfile', views.DoctorProfile),
+    # Doctor/updateProfile
+    re_path(r'^api/Doctor/updateProfile', views.DoctorUpdateProfile),
 ]
 
 if settings.DEBUG:

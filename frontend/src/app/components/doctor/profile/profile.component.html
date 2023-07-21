@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title text-center text-lg font-bold">Profile Management</h4>
-          <form [formGroup]="signupForm" (ngSubmit)="updateProfile()" enctype="multipart/form-data">
+          <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()" enctype="multipart/form-data">
             <div class="mb-4">
               <label for="fullName" class="block mb-2 text-sm font-medium text-gray-900 ">Full
                 Name</label>
@@ -15,13 +15,26 @@
             <div class="mb-4">
               <label for="email" class="block">Email Address</label>
               <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded" id="email"
-                placeholder="Enter your email address" required formControlName="email">
+                placeholder="Enter your email address" required formControlName="email" readonly>
             </div>
+
             <div class="flex flex-wrap -mx-2 mb-4">
-              <div class="w-full md:w-6/12 px-2">
+              <!-- <div class="w-full md:w-6/12 px-2">
                 <label for="password" class="block">Password</label>
                 <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded" id="password"
                   placeholder="Enter a password" required formControlName="password">
+              </div> -->
+              <div class="w-full md:w-6/12 px-2">
+                <label for="languageProficiency" class="block mb-2 text-sm font-medium text-gray-900">Select language
+                  proficiency</label>
+                <select id="languageProficiency"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  formControlName="language_proficiency">
+                  <option value="" selected disabled>Choose language proficiency</option>
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Advanced">Advanced</option>
+                </select>
               </div>
               <div class="w-full md:w-6/12 px-2">
                 <label for="mobileNumber" class="block">Mobile Number</label>
@@ -69,37 +82,22 @@
               <textarea class="w-full px-4 py-2 border border-gray-300 rounded" id="education" rows="3"
                 placeholder="Enter your education and qualifications" formControlName="education"></textarea>
             </div>
-            <div class="flex flex-wrap -mx-2 mb-4">
-              <div class="w-full md:w-6/12 px-2">
-                <label for="languageProficiency"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select language
-                  proficiency</label>
-                <select id="languageProficiency"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                  formControlName="language_proficiency">
-                  <option value="" selected disabled>Choose language proficiency</option>
-                  <option value="Beginner">Beginner</option>
-                  <option value="Intermediate">Intermediate</option>
-                  <option value="Advanced">Advanced</option>
-                </select>
-
-              </div>
-              <div class="w-full md:w-6/12 px-2">
-                <label for="certifications" class="block">Professional Certifications</label>
-                <textarea class="w-full px-4 py-2 border border-gray-300 rounded" id="certifications" rows="3"
-                  placeholder="Enter your professional certifications"
-                  formControlName="professional_certifications"></textarea>
-              </div>
+            <div class="form-group mb-4">
+              <label for="certifications" class="block">Professional Certifications</label>
+              <textarea class="w-full px-4 py-2 border border-gray-300 rounded" id="certifications" rows="3"
+                placeholder="Enter your professional certifications"
+                formControlName="professional_certifications"></textarea>
             </div>
             <!-- Profile Picture -->
             <div class="mb-4">
               <label for="profilePicture" class="block">Profile Picture</label>
               <input type="file" class="w-full py-2" id="profilePicture" (change)="onProfilePictureChange($event)"
-                accept="image/*" formControlName="profile_picture">
+                accept="image/*" formControlName="profile_picture" #profilePictureInput>
               <div *ngIf="profilePicturePreview" class="mt-2">
                 <img [src]="profilePicturePreview" class="w-32 h-32 object-cover" alt="Profile Picture Preview">
               </div>
             </div>
+
 
             <!-- Professional Practice License -->
             <div class="mb-4">

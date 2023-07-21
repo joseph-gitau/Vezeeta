@@ -21,15 +21,12 @@ class PatientSerializer(serializers.ModelSerializer):
 class DoctorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
-        fields = ('full_name',
-                  'email',
-                  'password',
-                  'mobile_number',
-                  'specialty',
-                  'license_number',
-                  'affiliation',
-                  'experience',
-                  'education',
-                  'language_proficiency',
-                  'professional_certifications',
-                  'profile_picture')
+        fields = '__all__'
+
+    def update(self, instance, validated_data):
+        # Exclude password and email from validated data
+        validated_data.pop('password', None)
+        validated_data.pop('email', None)
+
+        # Call the default update() method to update other fields
+        return super().update(instance, validated_data)
